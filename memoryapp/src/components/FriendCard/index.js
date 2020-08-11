@@ -5,7 +5,7 @@ function FriendCard(props) {
   return (
     <div className="card">
       <div className="img-container">
-        <img alt={props.name} src={props.image} onClick={props.handleIncrement}/>
+        <img className="click-item" alt={props.name} src={props.image} onClick={props.handleIncrement}/>
       </div>
       {/* <button className="btn btn-primary" onClick={this.handleIncrement}>
             Increment
