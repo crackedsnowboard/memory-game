@@ -22,26 +22,47 @@ class App extends Component {
     // This wouldn't work as expected
     // this.state.count = this.state.count + 1;
     if (this.state.count > this.state.topScore) {
-      this.setState({ topScore: this.state.count })
+      this.setState({ topScore: this.state.count + 1 })
     }
   };
 
   // new function to check if the id of a card has been clicked twice. filter the friend array of objects 
 
-  removeFriend = id => {
+  removeFriend = event => {
+    // Get the data-value of the clicked button
+    const btnType = event.target.attributes.getNamedItem("data-value").value;
+    // Clone this.state to the newState object
+    // We'll modify this object and use it to set our component's state
+    const newState = { ...this.state };
+
+    if (btnType === "pick") {
+      // Set newState.match to either true or false depending on whether or not the dog likes us (1/5 chance)
+      newState.match = 1 === Math.floor(Math.random() * 5) + 1;
+
+      // Set newState.matchCount equal to its current value or its current value + 1 depending on whether the dog likes us
+      newState.matchCount = newState.match
+        ? newState.matchCount + 1
+        : newState.matchCount;
+    } else {
+      // If we thumbs down'ed the dog, we haven't matched with it
+      newState.match = false;
+    }
+    // Replace our component's state with newState, load the next dog image
+    this.setState(newState);
+    
     // Filter this.state.friends for friends with an id not equal to the id being removed
     // var cardTracker = []
-    if (this.state.cardTracker.includes(id)) {
-      console.log(this.state.cardTracker);
-    console.log("you lost");
-  } else {
-    this.state.cardTracker.push(id)
-  }
+  //   if (this.state.cardTracker.includes(id)) {
+  //     console.log(this.state.cardTracker);
+  //   console.log("you lost");
+  // } else {
+  //   this.setState({ cardTracker: this.state.cardTracker.push(id) })
+  // }
     
     
-    const friends = this.state.friends.filter(friend => friend.id !== id);
-    // Set this.state.friends equal to the new friends array
-    this.setState({ friends: friends });
+    // const friends = this.state.friends.filter(friend => friend.id !== id);
+    // // Set this.state.friends equal to the new friends array
+    // this.setState({ friends: friends });
   };
 
   // Map over this.state.friends and render a FriendCard component for each friend object
@@ -52,20 +73,11 @@ class App extends Component {
         
         topScore={this.state.topScore}
         count={this.state.count}
+        cardTracker={this.state.cardTracker}
         />
-        {/* <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <ul>
-            <li>
-              <a className="navbar-brand" href="#">Memory Game</a>
-            </li>
-            <span className="navbar-text">
-              Click an image to begin but don't click the same image twice!
-            </span>
-            <li className="nav-item justify-end">Score: {this.state.count} | Top Score: {this.state.topScore} card clicke: {this.state.cardTracker}</li>
-          </ul>
-        </nav> */}
+  
         <Wrapper>
-          {/* <Title>Memory Game</Title> */}
+          <Title></Title>
           {this.state.friends.map(friend => (
             <FriendCard
               handleIncrement={this.handleIncrement}
@@ -74,8 +86,8 @@ class App extends Component {
               key={friend.id}
               name={friend.name}
               image={friend.image}
-              occupation={friend.occupation}
-              location={friend.location}
+              // occupation={friend.occupation}
+              // location={friend.location}
             />
           ))}
         </Wrapper>
