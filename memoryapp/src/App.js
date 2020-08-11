@@ -12,7 +12,8 @@ class App extends Component {
   state = {
     friends: friends,
     count: 0,
-    topScore: 0
+    topScore: 0,
+    cardTracker: []
   };
 
   handleIncrement = () => {
@@ -25,10 +26,18 @@ class App extends Component {
     }
   };
 
-// new function to check if the id of a card has been clicked twice. filter the friend array of objects 
+  // new function to check if the id of a card has been clicked twice. filter the friend array of objects 
 
   removeFriend = id => {
     // Filter this.state.friends for friends with an id not equal to the id being removed
+    // var cardTracker = []
+    if (this.state.cardTracker.includes(id)) {
+      console.log(this.state.cardTracker);
+    console.log("you lost");
+  } else {
+    this.state.cardTracker.push(id)
+  }
+    
     
     const friends = this.state.friends.filter(friend => friend.id !== id);
     // Set this.state.friends equal to the new friends array
@@ -39,18 +48,22 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* <Navbar score={this.state.count}/> */}
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <Navbar 
+        
+        topScore={this.state.topScore}
+        count={this.state.count}
+        />
+        {/* <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <ul>
             <li>
-              <a class="navbar-brand" href="#">Memory Game</a>
+              <a className="navbar-brand" href="#">Memory Game</a>
             </li>
-            <span class="navbar-text">
+            <span className="navbar-text">
               Click an image to begin but don't click the same image twice!
             </span>
-            <li class="nav-item justify-right">Score: {this.state.count} | Top Score: {this.state.topScore}</li>
+            <li className="nav-item justify-end">Score: {this.state.count} | Top Score: {this.state.topScore} card clicke: {this.state.cardTracker}</li>
           </ul>
-        </nav>
+        </nav> */}
         <Wrapper>
           {/* <Title>Memory Game</Title> */}
           {this.state.friends.map(friend => (
