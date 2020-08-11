@@ -5,9 +5,12 @@ function FriendCard(props) {
   return (
     <div className="card">
       <div className="img-container">
-        <img alt={props.name} src={props.image} />
+        <img alt={props.name} src={props.image} onClick={props.handleIncrement}/>
       </div>
-      <div className="content">
+      {/* <button className="btn btn-primary" onClick={this.handleIncrement}>
+            Increment
+          </button> */}
+      {/* <div className="content">
         <ul>
           <li>
             <strong>Name:</strong> {props.name}
@@ -19,7 +22,7 @@ function FriendCard(props) {
             <strong>Location:</strong> {props.location}
           </li>
         </ul>
-      </div>
+      </div> */}
       <span onClick={() => props.removeFriend(props.id)} className="remove">
         𝘅
       </span>
