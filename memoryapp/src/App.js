@@ -15,7 +15,7 @@ class App extends Component {
     topScore: 0,
   };
 
-  handleIncrement = (id) => {
+  handleCardClick = (id) => {
     console.log(id);
     this.state.friends.find((object, index) => {
       // console.log(object);
@@ -23,9 +23,8 @@ class App extends Component {
         console.log(object.count);
         // console.log(object);
         if (object.count === 0) {
-          // gameover
-          object.count = 1
-          
+          object.count = 1;
+          this.setState({ count: this.state.count + 1 });
         }
         else {
           console.log("game over");
@@ -33,12 +32,6 @@ class App extends Component {
         }
       }
     })
-
-    // We always use the setState method to update a component's state
-    this.setState({ count: this.state.count + 1 });
-
-    // This wouldn't work as expected
-    // this.state.count = this.state.count + 1;
     
     // reshuffle the deck of cards
     this.state.friends.sort(() => Math.random() - 0.5)
@@ -69,7 +62,7 @@ class App extends Component {
           <Title></Title>
           {this.state.friends.map(friend => (
             <FriendCard
-              handleIncrement={this.handleIncrement}
+              handleCardClick={this.handleCardClick}
               id={friend.id}
               key={friend.id}
               name={friend.name}
