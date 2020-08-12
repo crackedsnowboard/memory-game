@@ -67,7 +67,6 @@ class App extends Component {
               key={friend.id}
               name={friend.name}
               image={friend.image}
-            
             />
           ))}
         </Wrapper>
