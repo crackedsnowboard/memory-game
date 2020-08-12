@@ -16,14 +16,36 @@ class App extends Component {
     cardTracker: []
   };
 
-  handleIncrement = () => {
+  handleIncrement = (id) => {
+    console.log(id);
+    this.state.friends.find((object, index) => {
+      // console.log(object);
+      if (object.id === id) {
+        console.log(object.count);
+        // console.log(object);
+        if (object.id === 0) {
+          // gameover
+          object.count = 1
+          
+        }
+        else {
+          console.log("game over");
+        }
+
+      }
+    })
+
     // We always use the setState method to update a component's state
     this.setState({ count: this.state.count + 1 });
+
     // This wouldn't work as expected
     // this.state.count = this.state.count + 1;
     if (this.state.count > this.state.topScore) {
       this.setState({ topScore: this.state.count + 1 })
     }
+    // cardTracker.push()
+    // console.log(this.state);
+    this.state.friends.sort(() => Math.random() - 0.5)
   };
 
   // new function to check if the id of a card has been clicked twice. filter the friend array of objects 
@@ -49,17 +71,17 @@ class App extends Component {
     }
     // Replace our component's state with newState, load the next dog image
     this.setState(newState);
-    
+
     // Filter this.state.friends for friends with an id not equal to the id being removed
     // var cardTracker = []
-  //   if (this.state.cardTracker.includes(id)) {
-  //     console.log(this.state.cardTracker);
-  //   console.log("you lost");
-  // } else {
-  //   this.setState({ cardTracker: this.state.cardTracker.push(id) })
-  // }
-    
-    
+    //   if (this.state.cardTracker.includes(id)) {
+    //     console.log(this.state.cardTracker);
+    //   console.log("you lost");
+    // } else {
+    //   this.setState({ cardTracker: this.state.cardTracker.push(id) })
+    // }
+
+
     // const friends = this.state.friends.filter(friend => friend.id !== id);
     // // Set this.state.friends equal to the new friends array
     // this.setState({ friends: friends });
@@ -69,13 +91,13 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbar 
-        
-        topScore={this.state.topScore}
-        count={this.state.count}
-        cardTracker={this.state.cardTracker}
+        <Navbar
+
+          topScore={this.state.topScore}
+          count={this.state.count}
+          cardTracker={this.state.cardTracker}
         />
-  
+
         <Wrapper>
           <Title></Title>
           {this.state.friends.map(friend => (
@@ -86,8 +108,8 @@ class App extends Component {
               key={friend.id}
               name={friend.name}
               image={friend.image}
-              // occupation={friend.occupation}
-              // location={friend.location}
+            // occupation={friend.occupation}
+            // location={friend.location}
             />
           ))}
         </Wrapper>

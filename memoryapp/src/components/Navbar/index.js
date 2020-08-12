@@ -9,7 +9,7 @@ function Navbar(props) {
         <span className="navbar-text">
           Click an image to begin!
         </span>
-        <a className="nav-item justify-right">Score: {props.count} | Top Score: {props.topScore} Card: {props.cardTracker}</a>
+        <a className="nav-item justify-right">Score: {props.count} | Top Score: {props.topScore}</a>
 
     </nav>
   );
